@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
-import { supabase } from '../config/configure';
-import { useRouter } from 'next/navigation'; // Correct import for useRouter
+import { supabase } from '../lib/configure';
+import { useRouter } from 'next/navigation';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -11,13 +11,13 @@ const LoginPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data: { user }, error } = await supabase.auth.signInWithPassword({
+            const { data, error } = await supabase.auth.signInWithPassword({
                 email: email,
                 password: password,
             });
             if (error) throw error;
-            console.log('User Data:', user);
-            if (user != null) {
+            console.log('User Data:', data.user);
+            if (data.user != null) {
                 router.push('/dashboard');
             }
         } catch (error) {

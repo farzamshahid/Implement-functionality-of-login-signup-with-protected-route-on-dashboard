@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import { supabase } from '../config/configure';
+import { supabase } from '../lib/configure';
 import { useRouter } from 'next/navigation';
 
 const SignUp = () => {
