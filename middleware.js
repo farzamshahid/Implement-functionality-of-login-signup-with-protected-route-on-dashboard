@@ -1,16 +1,16 @@
-import { NextResponse } from 'next/server'
-import { supabase } from './app/lib/configure'
-
+import { NextResponse } from 'next/server';
+import { supabase } from './app/lib/configure';
 export async function middleware(request) {
-    const { data, error } = await supabase.auth.getSession()
+    const { data, error } = await supabase.auth.getSession();
 
-    if (error || !data.session) {
-        console.log('data')
-        return NextResponse.redirect(new URL('/login', request.url))
+    console.log('data', data);
+
+    if (!data.session || error) {
+        return NextResponse.redirect(new URL('/login', request.url));
     }
-    return NextResponse.next()
+    return NextResponse.next();
 }
 
 export const config = {
     matcher: ['/', '/dashboard'],
-}
+};
